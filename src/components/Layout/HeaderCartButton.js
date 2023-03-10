@@ -6,7 +6,7 @@ import {CartContext} from "../../store/cart-context";
 const HeaderCartButton = ({onShowCart}) => {
 
   const cartContext = useContext(CartContext)
-  const numberOfItems = cartContext.cartItems.reduce(
+  const numberOfItems = cartContext.items.reduce(
       (count, item) => count + item.amount, 0)
   const onClickHandler = () => {
     onShowCart(true)

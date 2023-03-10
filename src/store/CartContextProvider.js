@@ -1,33 +1,42 @@
-import {useState} from "react";
+import {useReducer} from "react";
 import {CartContext} from "./cart-context";
+import {ADD_CART_ITEM, REMOVE_CART_ITEM} from "./actionTypes";
+
+const cartReducer = (state, action) => {
+  switch (action.type) {
+    case ADD_CART_ITEM:
+      const index = state.findIndex(item => item.name === action.item.name)
+      if (index === -1) {
+        return state.concat(action.item)
+      } else {
+        const updatedItems = [...state]
+        updatedItems[index] = {
+          ...updatedItems[index],
+          amount: updatedItems[index].amount + action.item.amount
+        }
+        return updatedItems
+      }
+    case REMOVE_CART_ITEM:
+      return state.filter(item => item.name !== action.item.name)
+    default:
+      return state
+  }
+}
 
 const CartContextProvider = props => {
 
-  const [cartItems, setCartItems] = useState([])
+  const [cartState, dispatchCartAction] = useReducer(cartReducer, [], undefined)
 
   const addCartItemHandler = item => {
-    setCartItems((prevState) => {
-      let storedItemIndex = prevState.findIndex(
-          storedItem => storedItem.name === item.name)
-      if (storedItemIndex >= 0) {
-        prevState[storedItemIndex] = {
-          ...prevState[storedItemIndex],
-          amount: prevState[storedItemIndex].amount + item.amount
-        }
-      } else {
-        return [...prevState, item]
-      }
-      return [...prevState]
-    })
+    dispatchCartAction({type: ADD_CART_ITEM, item})
   }
 
   const removeCartItemHandler = name => {
-    setCartItems(
-        prevState => prevState.filter(storedItem => storedItem.name !== name))
+    dispatchCartAction({type: REMOVE_CART_ITEM, name})
   }
 
   const cartContext = {
-    cartItems: cartItems,
+    items: cartState,
     addCartItem: addCartItemHandler,
     removeCartItem: removeCartItemHandler
   };

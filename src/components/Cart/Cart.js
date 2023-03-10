@@ -8,7 +8,7 @@ const Cart = ({onShowCart}) => {
       item => <li>{item.name}</li>)}</ul>
 
   const cartContext = useContext(CartContext)
-  const totalAmount = `$${cartContext.cartItems.reduce(
+  const totalAmount = `$${cartContext.items.reduce(
       (totalAmount, item) => totalAmount + item.amount * item.price, 0).toFixed(
       2)}`
 
