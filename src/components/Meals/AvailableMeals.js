@@ -31,13 +31,13 @@ const DUMMY_MEALS = [
 
 const AvailableMeals = () => {
   const meals = DUMMY_MEALS.map(meal => <MealsItem meal={meal} key={meal.id}/>)
-    return (
-    <section className={classes.meals}>
-      <ul>
-        <Card>{meals}</Card>
-      </ul>
-    </section>
-    )
-    }
+  return (
+      <section className={classes.meals}>
+        <ul>
+          <Card>{meals}</Card>
+        </ul>
+      </section>
+  )
+}
 
-    export default AvailableMeals
+export default AvailableMeals
