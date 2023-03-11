@@ -2,12 +2,13 @@ import classes from './Cart.module.css'
 import Modal from "../UI/Modal"
 import {useContext} from "react";
 import {CartContext} from "../../store/cart-context";
+import CartItem from "./CartItem";
 
 const Cart = ({onShowCart}) => {
   const cartContext = useContext(CartContext)
 
   const items = <ul className={classes['cart-items']}>{cartContext.items.map(
-      item => <li>{item.name}</li>)}</ul>
+      item => <CartItem item={item}></CartItem>)}</ul>
 
   const totalAmount = `$${cartContext.items.reduce(
       (totalAmount, item) => totalAmount + item.amount * item.price, 0).toFixed(
