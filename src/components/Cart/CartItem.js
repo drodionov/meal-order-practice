@@ -7,7 +7,7 @@ const CartItem = ({item}) => {
   const cartContext = useContext(CartContext)
 
   const removeHandler = () => {
-    cartContext.removeCartItem(item.name)
+    cartContext.removeCartItem(item.id)
   }
 
   const addItemHandler = () => {

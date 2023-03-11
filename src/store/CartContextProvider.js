@@ -3,7 +3,7 @@ import {CartContext} from "./cart-context";
 import {ADD_CART_ITEM, REMOVE_CART_ITEM} from "./actionTypes";
 
 const cartReducer = (state, action) => {
-  const index = state.findIndex(item => item.name === action.item.name)
+  const index = state.findIndex(item => item.id === action.item.id)
 
   switch (action.type) {
     case ADD_CART_ITEM:
@@ -22,7 +22,7 @@ const cartReducer = (state, action) => {
         return state
       }
       if (state[index].amount <= 1) {
-        return state.filter(stateItem => stateItem.name !== action.item.name)
+        return state.filter(stateItem => stateItem.id !== action.item.id)
       } else {
         const updatedItems = [...state]
         updatedItems[index] = {
@@ -44,8 +44,8 @@ const CartContextProvider = props => {
     dispatchCartAction({type: ADD_CART_ITEM, item})
   }
 
-  const removeCartItemHandler = name => {
-    dispatchCartAction({type: REMOVE_CART_ITEM, item: {name: name}})
+  const removeCartItemHandler = id => {
+    dispatchCartAction({type: REMOVE_CART_ITEM, item: {id: id}})
   }
 
   const cartContext = {
