@@ -4,10 +4,11 @@ import {useContext} from "react";
 import {CartContext} from "../../store/cart-context";
 
 const Cart = ({onShowCart}) => {
-  const items = <ul className={classes['cart-items']}>{[].map(
+  const cartContext = useContext(CartContext)
+
+  const items = <ul className={classes['cart-items']}>{cartContext.items.map(
       item => <li>{item.name}</li>)}</ul>
 
-  const cartContext = useContext(CartContext)
   const totalAmount = `$${cartContext.items.reduce(
       (totalAmount, item) => totalAmount + item.amount * item.price, 0).toFixed(
       2)}`
